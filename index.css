@@ -1,0 +1,198 @@
+:root {
+    --bg: #f0f0f0;
+    --yellow: #FEFF00;
+    --pink: #FF00F5;
+    --blue: #00E0FF;
+    --black: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg);
+    font-family: 'Public Sans', sans-serif;
+    color: var(--black);
+    padding: 20px;
+}
+
+/* Kotak Khas Neo-Brutalism */
+.neo-box {
+    background: white;
+    border: 4px solid var(--black);
+    box-shadow: 8px 8px 0px var(--black);
+    padding: 20px;
+    transition: all 0.2s ease;
+}
+
+.neo-box:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0px var(--black);
+}
+
+/* Marquee Effect */
+.marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    background: var(--black);
+    color: white;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+/* Hero Section */
+.hero {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+h1 {
+    font-family: 'Lexend Mega', sans-serif;
+    font-size: clamp(2rem, 8vw, 5rem);
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+.tilt {
+    display: inline-block;
+    background: var(--yellow);
+    padding: 0 10px;
+    transform: rotate(-2deg);
+    border: 3px solid var(--black);
+}
+
+/* Badges */
+.badge-row { display: flex; gap: 10px; margin-top: 20px; }
+.badge {
+    padding: 5px 15px;
+    font-weight: 900;
+    border: 2px solid var(--black);
+    text-transform: uppercase;
+}
+.yellow { background: var(--yellow); }
+.blue { background: var(--blue); }
+.pink { background: var(--pink); }
+
+/* Projects */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-family: 'Lexend Mega', sans-serif;
+}
+
+.card-1 { background: var(--blue); }
+.card-2 { background: var(--pink); }
+
+.link-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    border: 2px solid black;
+}
+
+/* Footer */
+.footer-neo { margin-top: 50px; }
+.contact-box { text-align: center; background: var(--yellow); }
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+.socials a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    width: 50px;
+    padding: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+}
+.whack-game-container {
+    background: var(--blue) !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    user-select: none;
+}
+
+.game-ui {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+
+.whack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    background: black;
+    padding: 10px;
+    border: 3px solid black;
+}
+
+.hole {
+    width: 70px;
+    height: 70px;
+    background: white;
+    border: 3px solid black;
+    position: relative;
+    cursor: crosshair;
+    overflow: hidden;
+}
+
+/* Tampilan si Bug */
+.hole.has-bug::before {
+    content: '🪲'; /* Kamu bisa ganti dengan icon lain */
+    font-size: 2.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: popUp 0.2s ease-out;
+}
+
+@keyframes popUp {
+    0% { transform: translate(-50%, 20%); }
+    100% { transform: translate(-50%, -50%); }
+}
+
+.hole.hit {
+    background: var(--pink);
+}
+
+#start-whack {
+    width: 100%;
+    padding: 10px;
+    background: var(--yellow);
+    border: 3px solid black;
+    font-weight: 900;
+    box-shadow: 4px 4px 0px black;
+    cursor: pointer;
+}
+
+#start-whack:active {
+    box-shadow: 0px 0px 0px black;
+    transform: translate(4px, 4px);
+}

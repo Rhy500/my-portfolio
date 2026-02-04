@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unik Portofolio | Febriyanti Rahayu</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@400;700&family=Public+Sans:wght@400;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="neo-box marquee">
+        <div class="marquee-content">
+            OPEN FOR COLLABORATION • AVAILABLE FOR HIRE • CREATIVE MIND • OPEN FOR COLLABORATION • AVAILABLE FOR HIRE • CREATIVE MIND •
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="neo-box hero-content">
+                <h1>SAYA <span class="tilt">Febriyanti Rahayu</span></h1>
+                <p>Digital Alchemist & Creative Builder.</p>
+                <div class="badge-row">
+                    <span class="badge yellow">IT</span>
+                    <span class="badge blue">Safety</span>
+                    <span class="badge pink">Volunteer</span>
+                </div>
+            </div>
+            
+            <div class="neo-box whack-game-container">
+                <div class="game-ui">
+                    <div class="stat">SCORE: <span id="whack-score">0</span></div>
+                    <div class="stat">TIME: <span id="whack-time">20</span>s</div>
+                </div>
+                
+                <div class="whack-grid">
+                    <div class="hole" onclick="whack(this)"></div>
+                    <div class="hole" onclick="whack(this)"></div>
+                    <div class="hole" onclick="whack(this)"></div>
+                    <div class="hole" onclick="whack(this)"></div>
+                    <div class="hole" onclick="whack(this)"></div>
+                    <div class="hole" onclick="whack(this)"></div>
+                    <div class="hole" onclick="whack(this)"></div>
+                    <div class="hole" onclick="whack(this)"></div>
+                    <div class="hole" onclick="whack(this)"></div>
+                </div>
+
+                <button id="start-whack" onclick="startWhackGame()">START DEBUGGING</button>
+            </div>
+        </section>
+
+        <section class="work">
+            <h2 class="section-title">PROJEK KEREN_</h2>
+            <div class="grid">
+                <div class="neo-box card card-1">
+                    <h3>Individual Projects</h3>
+                    <p>Proyek yang dikerjakan secara mandiri sebagai wujud pengembangan kemampuan dan eksplorasi ide.</p>
+                    <a href="https://github.com/Rhy500" target="_blank" class="link-btn">LIHAT →</a>
+                </div>
+                <div class="neo-box card card-2">
+                    <h3>Collaborative Projects</h3>
+                    <p>Proyek yang dikerjakan bersama tim untuk menghasilkan solusi melalui kolaborasi.</p>
+                    <a href="https://github.com/Rhy500" target="_blank" class="link-btn">LIHAT →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-neo">
+        <div class="neo-box contact-box">
+            <h2>ADA IDE GILA?</h2>
+            <p>Ayo ngobrol di:</p>
+            <div class="socials">
+                <a href="https://www.instagram.com/yanthyrhyfeb_776?igsh=Z2ttd25uaTFuZzRv" class="neo-box small">IG</a>
+                <a href="https://github.com/Rhy500" target="_blank" class="neo-box small">GH</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let score = 0;
+        let timeLeft = 20;
+        let gameActive = false;
+        let bugTimer;
+        let countdownTimer;
+
+        const holes = document.querySelectorAll('.hole');
+        const scoreDisplay = document.getElementById('whack-score');
+        const timeDisplay = document.getElementById('whack-time');
+        const startBtn = document.getElementById('start-whack');
+
+        function startWhackGame() {
+            if (gameActive) return;
+            
+            score = 0;
+            timeLeft = 20;
+            gameActive = true;
+            scoreDisplay.textContent = score;
+            timeDisplay.textContent = timeLeft;
+            startBtn.style.visibility = 'hidden'; // Sembunyikan tombol saat main
+
+            countdownTimer = setInterval(() => {
+                timeLeft--;
+                timeDisplay.textContent = timeLeft;
+                if (timeLeft <= 0) endGame();
+            }, 1000);
+
+            showBug();
+        }
+
+        function showBug() {
+            if (!gameActive) return;
+
+            holes.forEach(h => h.classList.remove('has-bug', 'hit'));
+
+            const randomHole = holes[Math.floor(Math.random() * holes.length)];
+            randomHole.classList.add('has-bug');
+
+            const speed = Math.max(400, 1000 - (score * 20)); // Makin tinggi skor, makin cepat
+            bugTimer = setTimeout(showBug, speed);
+        }
+
+        function whack(hole) {
+            if (!gameActive) return;
+
+            if (hole.classList.contains('has-bug')) {
+                score++;
+                scoreDisplay.textContent = score;
+                hole.classList.remove('has-bug');
+                hole.classList.add('hit');
+                
+                if (navigator.vibrate) navigator.vibrate(50);
+            }
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(countdownTimer);
+            clearTimeout(bugTimer);
+            holes.forEach(h => h.classList.remove('has-bug'));
+            
+            alert("DEBUGGING SELESAI! Bug yang teratasi: " + score);
+            startBtn.textContent = "DEBUG ULANG?";
+            startBtn.style.visibility = 'visible';
+        }
+    </script>
+</body>
+</html>
